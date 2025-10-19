@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.hacom.telco.grpc";
+option java_outer_classname = "OrdersProto";
+
+package com.hacom.telco.grpc;
+
+import "google/protobuf/timestamp.proto";
+
+message Order {
+  string id = 1;
+  string orderId = 2;
+  string customerId = 3;
+  string customerPhoneNumber = 4;
+  string status = 5;
+  repeated string items = 6;
+  google.protobuf.Timestamp ts = 7;
+}
+
+message OrderRequest {
+  string orderId = 1;
+  string customerId = 2;
+  string customerPhoneNumber = 3;
+  repeated string items = 4;
+}
+
+message GetOrderStatusRequest {
+  string orderId = 1;
+}
+
+message OrderResponse {
+  Order order = 1;
+}
+
+message GetOrdersByDateRangeRequest {
+  google.protobuf.Timestamp start_date = 1;
+  google.protobuf.Timestamp end_date = 2;
+}
+
+message GetOrdersByDateRangeResponse {
+  repeated Order orders = 1;
+}
+
+service OrderService {
+  rpc CreateOrder (OrderRequest) returns (CreateOrderResponse);
+  rpc GetOrderStatus (GetOrderStatusRequest) returns (GetOrderStatusResponse);
+  rpc GetOrdersByDateRange (GetOrdersByDateRangeRequest) returns (GetOrdersByDateRangeResponse);
+}
+
+message GetOrderStatusResponse {
+  string orderId = 1;
+  string status = 2;
+}
+
+message CreateOrderResponse {
+  string orderId = 1;
+  string status = 2;
+}

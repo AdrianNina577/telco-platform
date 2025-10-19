@@ -1,0 +1,80 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.4.10'
+    id 'io.spring.dependency-management' version '1.1.7'
+    id 'com.google.protobuf' version '0.9.4'
+}
+
+group = 'com.hacom.telco'
+version = '0.0.1-SNAPSHOT'
+description = 'Telecommunications platform for HACOM'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    all {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'io.micrometer:micrometer-registry-prometheus'
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springdoc:springdoc-openapi-starter-webflux-ui:2.6.0'
+    implementation 'javax.annotation:javax.annotation-api:1.3.2'
+
+    // gRPC
+    implementation 'io.grpc:grpc-netty-shaded:1.65.0'
+    implementation 'io.grpc:grpc-protobuf:1.65.0'
+    implementation 'io.grpc:grpc-stub:1.65.0'
+    implementation 'net.devh:grpc-server-spring-boot-starter:3.1.0.RELEASE'
+
+    // Akka
+    implementation 'com.typesafe.akka:akka-actor_2.13:2.6.20'
+    implementation 'com.typesafe.akka:akka-slf4j_2.13:2.6.20'
+
+    // SMPP
+    implementation 'com.fizzed:ch-smpp:5.0.9'
+
+    testImplementation 'net.devh:grpc-client-spring-boot-starter:3.1.0.RELEASE'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'io.projectreactor:reactor-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.25.1"
+    }
+    plugins {
+        grpc {
+            artifact = 'io.grpc:protoc-gen-grpc-java:1.65.0'
+        }
+    }
+    generateProtoTasks {
+        all()*.plugins {
+            grpc { }
+        }
+    }
+}
