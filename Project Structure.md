@@ -1,5 +1,5 @@
 # Project Structure
-
+```
 build.gradle                                -Dependency managment and build configuration
 src/main/proto/orders.proto                 -Specifications for the GRPC functions
 src/main/resources/log4j2.yml               -Loggin configuration
@@ -11,3 +11,4 @@ src/main/java/com/hacom/telco/grpc          -GRPC API implementation
 src/main/java/com/hacom/telco/dto           -Data Transfer Objects between different layers of the application
 src/main/java/com/hacom/telco/config        -Setup environment-specific settings
 src/main/java/com/hacom/telco/actor         -Akka actors for asynchronous order processing
+```
