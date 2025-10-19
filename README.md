@@ -25,7 +25,7 @@ To get started with the project, clone the repository and import it into your ID
 ```
 
 ## Project Structure
-
+```
 build.gradle                                -Dependency managment and build configuration
 
 src/main/proto/orders.proto                 -Specifications for the GRPC functions
@@ -47,7 +47,7 @@ src/main/java/com/hacom/telco/dto           -Data Transfer Objects between diffe
 src/main/java/com/hacom/telco/config        -Setup environment-specific settings
 
 src/main/java/com/hacom/telco/actor         -Akka actors for asynchronous order processing
-
+```
 
 ## Database: (MongoDB)
 -Defualt configuration in application.yml (change to match your environment accordingly)
@@ -60,7 +60,9 @@ src/main/java/com/hacom/telco/actor         -Akka actors for asynchronous order 
 
 
 ## SMPP Server configuration:
-Replace the Default SMPP service, which is configured in application.yml as followed:
+Set up SMPP service for sending customer SMS notifications when orders are processed
+
+-Replace the Default SMPP service, which is configured in application.yml as followed:
         
     smpp:
       host: localhost
@@ -73,8 +75,9 @@ Replace the Default SMPP service, which is configured in application.yml as foll
 
 * Note: The Default GRPC port is 9898 as defined in application.yml (apiPort), you may change it if needed.
 
-- CreateOrder:
-
+### CreateOrder:
+  This endpoint is used to create an order
+```
     Example:
         grpcurl -plaintext       -d '{
         "orderId": "ORD-018",
@@ -88,8 +91,8 @@ Replace the Default SMPP service, which is configured in application.yml as foll
           "orderId": "ORD-018",
           "status": "PROCESSED"
         }
-
-  Note: When the order is processed an SMS is sent to the specified customerPhoneNumber similar to "Your order ORD-018 has been processed"
+```
+  Note: When the order is processed an SMS is sent to the specified customerPhoneNumber, the message is similar to "Your order ORD-018 has been processed"
 
  Required Fields: 
 
@@ -97,12 +100,14 @@ Replace the Default SMPP service, which is configured in application.yml as foll
     * customerId
     * customerPhoneNumber
     * items
-    
 
-- GetOrdersByDateRange: 
+
+
+### GetOrdersByDateRange:
+  This endpoint returns all orders created between dates "start_date" and "end_date"
 
 * Note: Time Zone being used is UTC (Coordinated Universal Time)
-
+```
     Exmaple:
         grpcurl -plaintext -d '{
           "start_date": "2025-10-19T16:00:00Z",
@@ -138,10 +143,12 @@ Replace the Default SMPP service, which is configured in application.yml as foll
             }
           ]
         }
+```
 
- 
-- GetOrderStatus:
 
+### GetOrderStatus:
+  retrieves the status of a specific order (by orderId)
+```
     Example:
     grpcurl -plaintext -d '{"orderId": "ORD-018"}' localhost:9898 com.hacom.telco.grpc.OrderService/GetOrderStatus
 
@@ -150,14 +157,14 @@ Replace the Default SMPP service, which is configured in application.yml as foll
           "orderId": "ORD-018",
           "status": "PROCESSED"
         }
-
+```
 
 
 ## Metrics: (Promethius)
+This metric is used indicates the total amount of orders processed by the api
 
 - Type: Counter
 - Name: telco_orders_processed_total
-- Use: This counter indicates the total amount of orders processed
 - Configuration: Promethius default port is configured in application.yml to be 8080 (default), feel free to change it if desired
 
       Example: 
