@@ -60,7 +60,7 @@ src/main/java/com/hacom/telco/actor         -Akka actors for asynchronous order 
 
 
 ## SMPP Server configuration:
-Replace the Default SMPP service is configured in application.yml as followed:
+Replace the Default SMPP service, which is configured in application.yml as followed:
         
     smpp:
       host: localhost
