@@ -1,45 +1,55 @@
-### Telco Platform
+# Telco Platform
 
 This is a Telco Platform application built with Spring Boot and Akka.
 
-# Getting Started
+## Getting Started
 
 To get started with the project, clone the repository and import it into your IDE.
 
-# Prerequisites
+## Prerequisites
 
 - Java 17
 - Gradle
 - MongoDB
 
-# Building the project
+## Building the project
 
 ```bash
 ./gradlew build
 ```
 
-# Running the application
+## Running the application
 
 ```bash
 ./gradlew bootRun
 ```
 
-# Project Structure
+## Project Structure
 
 build.gradle                                -Dependency managment and build configuration
+
 src/main/proto/orders.proto                 -Specifications for the GRPC functions
+
 src/main/resources/log4j2.yml               -Loggin configuration
+
 src/main/resources/application.yml          -General configuration and port specification
+
 src/main/java/com/hacom/telco/service       -Source Files for Services
+
 src/main/java/com/hacom/telco/repository    -Abstraction layer encapsulates the logic required to access data sources
+
 src/main/java/com/hacom/telco/model         -Core objects that represent the data
+
 src/main/java/com/hacom/telco/grpc          -GRPC API implementation
+
 src/main/java/com/hacom/telco/dto           -Data Transfer Objects between different layers of the application
+
 src/main/java/com/hacom/telco/config        -Setup environment-specific settings
+
 src/main/java/com/hacom/telco/actor         -Akka actors for asynchronous order processing
 
 
-# Database: (MongoDB)
+## Database: (MongoDB)
 -Defualt configuration in application.yml (change to match your environment accordingly)
 
     Default Database Name:
@@ -49,7 +59,7 @@ src/main/java/com/hacom/telco/actor         -Akka actors for asynchronous order 
         mongodbUri: "mongodb://127.0.0.1:27017"
 
 
-# SMPP Server configuration:
+## SMPP Server configuration:
 Replace the Default SMPP service is configured in application.yml as followed:
         
     smpp:
@@ -59,7 +69,7 @@ Replace the Default SMPP service is configured in application.yml as followed:
       password: password
 
 
-# GRPC End Points
+## GRPC End Points
 
 * Note: The Default GRPC port is 9898 as defined in application.yml (apiPort), you may change it if needed.
 
@@ -78,7 +88,8 @@ Replace the Default SMPP service is configured in application.yml as followed:
           "orderId": "ORD-018",
           "status": "PROCESSED"
         }
-    Note: When the order is processed an SMS is sent to the specified customerPhoneNumber similar to "Your order ORD-018 has been processed"
+
+  Note: When the order is processed an SMS is sent to the specified customerPhoneNumber similar to "Your order ORD-018 has been processed"
 
  Required Fields: 
 
@@ -142,7 +153,7 @@ Replace the Default SMPP service is configured in application.yml as followed:
 
 
 
-# Metrics: (Promethius)
+## Metrics: (Promethius)
 
 - Type: Counter
 - Name: telco_orders_processed_total
