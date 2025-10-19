@@ -1,30 +1,30 @@
-# Telco Platform
+### Telco Platform
 
 This is a Telco Platform application built with Spring Boot and Akka.
 
-## Getting Started
+# Getting Started
 
 To get started with the project, clone the repository and import it into your IDE.
 
-### Prerequisites
+# Prerequisites
 
 - Java 17
 - Gradle
 - MongoDB
 
-### Building the project
+# Building the project
 
 ```bash
 ./gradlew build
 ```
 
-### Running the application
+# Running the application
 
 ```bash
 ./gradlew bootRun
 ```
 
-### Project Structure
+# Project Structure
 
 build.gradle                                -Dependency managment and build configuration
 src/main/proto/orders.proto                 -Specifications for the GRPC functions
@@ -59,7 +59,7 @@ Replace the Default SMPP service is configured in application.yml as followed:
       password: password
 
 
-### GRPC End Points
+# GRPC End Points
 
 * Note: The Default GRPC port is 9898 as defined in application.yml (apiPort), you may change it if needed.
 
